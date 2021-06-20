@@ -1,22 +1,31 @@
 package testcases;
 
-import io.restassured.RestAssured;
-import io.restassured.common.mapper.TypeRef;
-import io.restassured.http.ContentType;
-import io.restassured.mapper.ObjectMapper;
-import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
-import org.testng.annotations.Test;
 import testresponsevalidation.ResponseValidations;
 import teststeps.HttpMethods;
 import testutilities.ConfigurationReader;
-
-import java.lang.reflect.Type;
+import testutilities.ParsingMethod;
 
 public class TC1 {
 
-    public void getRequestTest() {
+    public void getPersonRequest() {
+        HttpMethods http = new HttpMethods();
+        Response response = http.getRequest(TC2.JsonKeyValue, ConfigurationReader.getProperty("url1"));
+
+        ResponseValidations.responseStatusLineCodeVal(200,response);
+
+        String ParseData = ParsingMethod.jsonResDataParsing(response, "firstName");
+        System.out.println(ParseData);
+        ResponseValidations.responseDataValid("Beck", ParseData);
+        System.out.println(response.asString()+ "\n");
+
+    }
+
+    public void getAllPeopleRequest() {
         HttpMethods http = new HttpMethods();
         Response response = http.getRequest(ConfigurationReader.getProperty("url1"));
-        ResponseValidations.responseStatusLineCodeVal(200,response);
-    }}
+        ResponseValidations.responseStatusLineCodeVal(200, response);
+        System.out.println(response.asString() + "\n");
+    }
+
+}

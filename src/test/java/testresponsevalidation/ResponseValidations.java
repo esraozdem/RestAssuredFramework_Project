@@ -11,14 +11,20 @@ public class ResponseValidations {
 //    }
 
 
-    public static  void responseStatusLineCodeVal(int ExpStatCode , Response response ) {
+    public static  void responseStatusLineCodeVal(int ExpStatCode, Response response) {
 
         Assert.assertEquals(response.getStatusCode(), ExpStatCode );
     }
     public static void responseStatusLineCodeVal(String ExpData , String actualData ) {
 
-        Assert.assertEquals(actualData,ExpData);
+        Assert.assertEquals(ExpData, actualData);
     }
+
+    public static void responseDataValid(String ExpData, String ActualData) {
+        Assert.assertEquals(ExpData,ActualData);
+    }
+
+
 
 
 
